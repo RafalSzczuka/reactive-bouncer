@@ -66,48 +66,29 @@ const Canvas = () => {
     drawBoard();
     drawBall();
 
-    // if (animation) {
-    //   function renderFrame(currentTime) {
-    //     if (oldTime === 0) {
-    //       oldTime = currentTime;
-    //     }
-    //     if (currentTime - oldTime >= delta) {
-    //       drawBoard();
-    //       drawBall();
-    //       ball.move();
-    //       oldTime = currentTime;
-    //       addHits(ball.hitCounter);
-    //       addSteps(ball.stepCounter);
-
-    //       if (
-    //         ball.position.x === ballEndPosition.x &&
-    //         ball.position.y === ballEndPosition.y
-    //       ) {
-    //         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //         ball.hitCounter = -2;
-    //         ball.stepCounter = 0;
-    //         setAnimation(false);
-    //         drawBoard();
-    //         drawBall();
-    //         return;
-    //       }
-    //     }
-    //     requestAnimationFrame(renderFrame);
-    //   }
-
-    //   requestAnimationFrame(renderFrame);
-    // }
-    const update = () => {
+    const drawFrame = () => {
       drawBoard();
       ball.move();
       drawBall();
 
       addHits(ball.hitCounter);
       addSteps(ball.stepCounter);
+      if (
+        ball.position.x === ballEndPosition.x &&
+        ball.position.y === ballEndPosition.y
+      ) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ball.hitCounter = -2;
+        ball.stepCounter = 0;
+        setAnimation(false);
+        drawBoard();
+        drawBall();
+        return;
+      }
     };
 
     if (animation) {
-      setId(setInterval(update, 1000 / fps));
+      setId(setInterval(drawFrame, 1000 / fps));
     } else {
       clearInterval(id);
     }
@@ -116,9 +97,12 @@ const Canvas = () => {
   return (
     <>
       <canvas ref={ref} width={width} height={height}></canvas>
-      <button className="btn_start" onClick={() => setAnimation(!animation)}>
-        {animation ? "Pause" : "Start"}
-      </button>
+      <div className="buttons">
+        <button className="btn_start" onClick={() => setAnimation(!animation)}>
+          {animation ? "Pause" : "Start"}
+        </button>
+        <button className="btn_reset">Reset</button>
+      </div>
 
       <div className="counter">
         <p className="hits">
