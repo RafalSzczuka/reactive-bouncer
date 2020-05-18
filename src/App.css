@@ -1,4 +1,5 @@
 .App {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,8 +12,10 @@ h1 {
 }
 
 .btn_start {
+  display: block;
+  width: 120px;
   font-size: 20px;
-  padding: 10px 30px;
+  padding: 10px 0;
   border: none;
   background: rgb(92, 102, 243);
   border-radius: 20px;
@@ -22,8 +25,23 @@ h1 {
   text-transform: uppercase;
   color: white;
   transition: 0.5s;
+  outline: none;
 }
 
 .btn_start:hover {
   background: rgb(47, 60, 248);
+  width: 140px;
+}
+
+.counter {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.hits span {
+  font-size: 30px;
+  font-weight: bold;
 }

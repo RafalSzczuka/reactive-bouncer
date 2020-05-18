@@ -4,14 +4,16 @@ import Ball from "./Ball";
 import board from "./Board";
 import { ballInitialVector, boardTemplate, size, fps } from "./config";
 
-const ballInitialPosition = board.getBallPosition();
-
+const ballInitialPosition = Object.assign({}, board.getBallPosition());
 let ball = new Ball(ballInitialPosition, ballInitialVector);
+const ballEndPosition = Object.assign({}, ballInitialPosition);
 
 const Canvas = () => {
   let ref = useRef();
+  let [hits, addHits] = useState(0);
+  let [steps, addSteps] = useState(0);
   const [animation, setAnimation] = useState(false);
-  const [position, setPosition] = useState(ball.position);
+  let [id, setId] = useState(null);
 
   useEffect(() => {
     let canvas = ref.current;
@@ -33,6 +35,16 @@ const Canvas = () => {
             ctx.fillStyle = "blue";
             ctx.arc(x * size, y * size, size / 2, 0, 2 * Math.PI);
             ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = "lightblue";
+            ctx.arc(x * size, y * size, size / 2.5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = "blue";
+            ctx.arc(x * size, y * size, size / 5, 0, 2 * Math.PI);
+            ctx.fill();
           }
         }
       }
@@ -51,34 +63,71 @@ const Canvas = () => {
       ctx.fill();
     }
 
-    const delta = 1000 / fps;
-    let oldTime = 0;
-
     drawBoard();
+    drawBall();
 
-    function renderFrame(currentTime) {
-      if (oldTime === 0) {
-        oldTime = currentTime;
-      }
-      if (currentTime - oldTime >= delta) {
-        drawBoard();
-        drawBall();
-        ball.move();
+    // if (animation) {
+    //   function renderFrame(currentTime) {
+    //     if (oldTime === 0) {
+    //       oldTime = currentTime;
+    //     }
+    //     if (currentTime - oldTime >= delta) {
+    //       drawBoard();
+    //       drawBall();
+    //       ball.move();
+    //       oldTime = currentTime;
+    //       addHits(ball.hitCounter);
+    //       addSteps(ball.stepCounter);
 
-        oldTime = currentTime;
-      }
-      requestAnimationFrame(renderFrame);
+    //       if (
+    //         ball.position.x === ballEndPosition.x &&
+    //         ball.position.y === ballEndPosition.y
+    //       ) {
+    //         ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //         ball.hitCounter = -2;
+    //         ball.stepCounter = 0;
+    //         setAnimation(false);
+    //         drawBoard();
+    //         drawBall();
+    //         return;
+    //       }
+    //     }
+    //     requestAnimationFrame(renderFrame);
+    //   }
+
+    //   requestAnimationFrame(renderFrame);
+    // }
+    const update = () => {
+      drawBoard();
+      ball.move();
+      drawBall();
+
+      addHits(ball.hitCounter);
+      addSteps(ball.stepCounter);
+    };
+
+    if (animation) {
+      setId(setInterval(update, 1000 / fps));
+    } else {
+      clearInterval(id);
     }
-
-    requestAnimationFrame(renderFrame);
-  });
+  }, [animation]);
 
   return (
     <>
       <canvas ref={ref} width={width} height={height}></canvas>
       <button className="btn_start" onClick={() => setAnimation(!animation)}>
-        Start
+        {animation ? "Pause" : "Start"}
       </button>
+
+      <div className="counter">
+        <p className="hits">
+          Steps counter: <span>{steps}</span>
+        </p>
+        <p className="hits">
+          Hits counter: <span>{hits}</span>
+        </p>
+      </div>
     </>
   );
 };
