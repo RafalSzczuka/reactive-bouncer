@@ -1,4 +1,19 @@
 import board from "./Board";
+import wallhit from "../sounds/wallhit.mp3";
+import bouncer from "../sounds/bouncer.mp3";
+
+const wallHit = new Audio(wallhit);
+const bouncerHit = new Audio(bouncer);
+
+const wallHitSound = () => {
+  wallHit.currentTime = 0;
+  wallHit.play();
+};
+
+const bouncerHitSound = () => {
+  bouncerHit.currentTime = 0;
+  bouncerHit.play();
+};
 
 export default class Ball {
   constructor(position, vector) {
@@ -17,10 +32,12 @@ export default class Ball {
     if (board.board[y][xV] === "X") {
       this.vector.x = -this.vector.x;
       this.hitCounter++;
+      wallHitSound();
     }
     if (board.board[yV][x] === "X") {
       this.vector.y = -this.vector.y;
       this.hitCounter++;
+      wallHitSound();
     }
     if (
       board.board[y][xV] === "0" &&
@@ -30,6 +47,7 @@ export default class Ball {
       this.vector.x = -this.vector.x;
       this.vector.y = -this.vector.y;
       this.hitCounter++;
+      wallHitSound();
     }
   }
 
@@ -64,6 +82,7 @@ export default class Ball {
     if (board.board[y][x] === "Y") {
       board.board[y][x] = "0";
       this.hitCounter++;
+      bouncerHitSound();
 
       if (this.vector.x === 1 && this.vector.y === 1) {
         possibleVectors = [

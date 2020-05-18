@@ -2,10 +2,12 @@ import React, { useRef, useEffect, useState } from "react";
 import { width, height } from "./config";
 import Ball from "./Ball";
 import board from "./Board";
-import { ballInitialVector, boardTemplate, size, fps } from "./config";
+import { ballInitialVector, fps } from "./config";
+import { drawBoard, drawBall } from "./drawElements";
 
 const ballInitialPosition = Object.assign({}, board.getBallPosition());
 let ball = new Ball(ballInitialPosition, ballInitialVector);
+
 const ballEndPosition = Object.assign({}, ballInitialPosition);
 
 const Canvas = () => {
@@ -20,56 +22,13 @@ const Canvas = () => {
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function drawBoard() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < boardTemplate.length; i++) {
-        for (let j = 0; j < boardTemplate[i].length; j++) {
-          let x = j;
-          let y = i;
-          if (boardTemplate[i][j] === "X") {
-            ctx.fillStyle = "rgb(150,150,150)";
-            ctx.fillRect(x * size, y * size, size, size);
-          }
-          if (boardTemplate[i][j] === "Y") {
-            ctx.beginPath();
-            ctx.fillStyle = "blue";
-            ctx.arc(x * size, y * size, size / 2, 0, 2 * Math.PI);
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.fillStyle = "lightblue";
-            ctx.arc(x * size, y * size, size / 2.5, 0, 2 * Math.PI);
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.fillStyle = "blue";
-            ctx.arc(x * size, y * size, size / 5, 0, 2 * Math.PI);
-            ctx.fill();
-          }
-        }
-      }
-    }
-
-    function drawBall() {
-      ctx.beginPath();
-      ctx.fillStyle = "red";
-      ctx.arc(
-        ball.position.x * size + size / 2,
-        ball.position.y * size + size / 2,
-        size / 2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fill();
-    }
-
-    drawBoard();
-    drawBall();
+    drawBoard(canvas, ctx);
+    drawBall(ctx, ball);
 
     const drawFrame = () => {
-      drawBoard();
+      drawBoard(canvas, ctx);
       ball.move();
-      drawBall();
+      drawBall(ctx, ball);
 
       addHits(ball.hitCounter);
       addSteps(ball.stepCounter);
@@ -78,11 +37,13 @@ const Canvas = () => {
         ball.position.y === ballEndPosition.y
       ) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ball.hitCounter = -2;
+        ball.vector.x = 1;
+        ball.vector.y = 1;
+        ball.hitCounter = 0;
         ball.stepCounter = 0;
         setAnimation(false);
-        drawBoard();
-        drawBall();
+        drawBoard(canvas, ctx);
+        drawBall(ctx, ball);
         return;
       }
     };
@@ -93,7 +54,6 @@ const Canvas = () => {
       clearInterval(id);
     }
   }, [animation]);
-
   return (
     <>
       <canvas ref={ref} width={width} height={height}></canvas>
@@ -101,7 +61,9 @@ const Canvas = () => {
         <button className="btn_start" onClick={() => setAnimation(!animation)}>
           {animation ? "Pause" : "Start"}
         </button>
-        <button className="btn_reset">Reset</button>
+        <button className="btn_reset" onClick={() => window.location.reload()}>
+          Reset
+        </button>
       </div>
 
       <div className="counter">

@@ -9,8 +9,8 @@ class Board {
 
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board[i].length; j++) {
-        if (this.board[j][i] === "1") {
-          position = { x: i, y: j };
+        if (this.board[i][j] === "1") {
+          position = { x: j, y: i };
           break;
         }
       }
