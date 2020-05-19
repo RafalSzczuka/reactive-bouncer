@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/reactive-bouncer/static/css/main.121224a3.chunk.css",
-    "main.js": "/reactive-bouncer/static/js/main.e2f1af24.chunk.js",
-    "main.js.map": "/reactive-bouncer/static/js/main.e2f1af24.chunk.js.map",
+    "main.css": "/reactive-bouncer/static/css/main.ba63542e.chunk.css",
+    "main.js": "/reactive-bouncer/static/js/main.b6b85ca4.chunk.js",
+    "main.js.map": "/reactive-bouncer/static/js/main.b6b85ca4.chunk.js.map",
     "runtime-main.js": "/reactive-bouncer/static/js/runtime-main.5d9a6c16.js",
     "runtime-main.js.map": "/reactive-bouncer/static/js/runtime-main.5d9a6c16.js.map",
     "static/js/2.35ff2579.chunk.js": "/reactive-bouncer/static/js/2.35ff2579.chunk.js",
     "static/js/2.35ff2579.chunk.js.map": "/reactive-bouncer/static/js/2.35ff2579.chunk.js.map",
     "index.html": "/reactive-bouncer/index.html",
-    "precache-manifest.fc515a5daa596fe8457b3224569b004d.js": "/reactive-bouncer/precache-manifest.fc515a5daa596fe8457b3224569b004d.js",
+    "precache-manifest.26cd0329cbe7cc4abd64c8a7458ad2a2.js": "/reactive-bouncer/precache-manifest.26cd0329cbe7cc4abd64c8a7458ad2a2.js",
     "service-worker.js": "/reactive-bouncer/service-worker.js",
-    "static/css/main.121224a3.chunk.css.map": "/reactive-bouncer/static/css/main.121224a3.chunk.css.map",
+    "static/css/main.ba63542e.chunk.css.map": "/reactive-bouncer/static/css/main.ba63542e.chunk.css.map",
     "static/js/2.35ff2579.chunk.js.LICENSE.txt": "/reactive-bouncer/static/js/2.35ff2579.chunk.js.LICENSE.txt",
     "static/media/bouncer.mp3": "/reactive-bouncer/static/media/bouncer.2b8d4f8b.mp3",
     "static/media/wallhit.mp3": "/reactive-bouncer/static/media/wallhit.feb0de84.mp3"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.5d9a6c16.js",
     "static/js/2.35ff2579.chunk.js",
-    "static/css/main.121224a3.chunk.css",
-    "static/js/main.e2f1af24.chunk.js"
+    "static/css/main.ba63542e.chunk.css",
+    "static/js/main.b6b85ca4.chunk.js"
   ]
 }
