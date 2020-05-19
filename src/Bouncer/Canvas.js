@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { width, height } from "./config";
 import Ball from "./Ball";
-import board from "./Board";
-import { ballInitialVector, fps } from "./config";
+import { ballInitialVector, fps, getBallPosition } from "./config";
 import { drawBoard, drawBall } from "./drawElements";
 
-const ballInitialPosition = Object.assign({}, board.getBallPosition());
+const ballInitialPosition = getBallPosition();
 let ball = new Ball(ballInitialPosition, ballInitialVector);
 
 const ballEndPosition = Object.assign({}, ballInitialPosition);
@@ -14,7 +13,7 @@ const Canvas = () => {
   let ref = useRef();
   let [hits, addHits] = useState(0);
   let [steps, addSteps] = useState(0);
-  const [animation, setAnimation] = useState(false);
+  let [animation, setAnimation] = useState(false);
   let [id, setId] = useState(null);
 
   useEffect(() => {
@@ -53,6 +52,8 @@ const Canvas = () => {
     } else {
       clearInterval(id);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animation]);
   return (
     <>
