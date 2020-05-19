@@ -59,6 +59,7 @@ export default class Ball {
       this.hitCounter++;
       bouncerHitSound();
 
+      // this.vector.x = randomVector;
       this.vector.y = randomVector;
     }
   }

@@ -55,11 +55,18 @@ const Canvas = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animation]);
+
+  let style = { background: "rgb(235, 197, 60)" };
+
   return (
     <>
       <canvas ref={ref} width={width} height={height}></canvas>
       <div className="buttons">
-        <button className="btn_start" onClick={() => setAnimation(!animation)}>
+        <button
+          className="btn_start"
+          onClick={() => setAnimation(!animation)}
+          style={animation ? style : null}
+        >
           {animation ? "Pause" : "Start"}
         </button>
         <button className="btn_reset" onClick={() => window.location.reload()}>

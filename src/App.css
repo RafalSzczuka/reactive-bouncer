@@ -29,20 +29,20 @@ h1 {
   margin: 10px;
   font-weight: bold;
   text-transform: uppercase;
-  color: white;
+  color: rgb(34, 34, 34);
   transition: 0.5s;
   outline: none;
 }
 
 .btn_start {
-  background: rgb(92, 102, 243);
+  background: rgb(77, 190, 73);
 }
 .btn_reset {
   background: rgb(248, 92, 92);
 }
 
 .btn_start:hover {
-  background: rgb(47, 60, 248);
+  background: rgb(56, 248, 49);
 }
 .btn_reset:hover {
   background: rgb(235, 54, 54);
