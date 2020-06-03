@@ -31,6 +31,7 @@ const Canvas = () => {
 
       addHits(ball.hitCounter);
       addSteps(ball.stepCounter);
+
       if (
         ball.position.x === ballEndPosition.x &&
         ball.position.y === ballEndPosition.y
